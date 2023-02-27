@@ -25,24 +25,24 @@ public class SMTPConnection {
     /* Create an SMTPConnection object. Create the socket and the
        associated streams. Initialize SMTP connection. */
     public SMTPConnection(Envelope envelope) throws IOException {
-        connection = new Socket("datacommm.bhsi.xyz", SMTP_PORT);
+        connection = new Socket(envelope.DestHost, SMTP_PORT);
+        //connection = new Socket("datacomm.bhsi.xyz", SMTP_PORT);
         fromServer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         toServer = new DataOutputStream(connection.getOutputStream());
 
         /* Fill in */
 	/* Read a line from server and check that the reply code is 220.
 	   If not, throw an IOException. */
-        String reply = null;
-        reply = fromServer.readLine();
-        if (reply != "220"){
-            throw new IOException();
+        int serverResponse = this.parseReply(fromServer.readLine());
+        if (serverResponse != 220){
+            throw new IOException("Unexpected server response");
         }
         /* Fill in */
 
 	/* SMTP handshake. We need the name of the local machine.
 	   Send the appropriate SMTP handshake command. */
-        String localhost = "Test";
-        sendCommand("HELO", 250);
+        String localhost = InetAddress.getLocalHost().getHostName();
+        sendCommand("HELO " + localhost, 250);
 
         isConnected = true;
     }
@@ -55,9 +55,11 @@ public class SMTPConnection {
 	/* Send all the necessary commands to send a message. Call
 	   sendCommand() to do the dirty work. Do _not_ catch the
 	   exception thrown from sendCommand(). */
-        sendCommand("MAIL FROM", 250);
-        sendCommand("RCPT TO", 250);
-        sendCommand("DATA", 354);
+        this.sendCommand("MAIL FROM: <" + envelope.Sender + ">", 250);
+        this.sendCommand("RCPT TO: <" + envelope.Recipient + ">", 250);
+        this.sendCommand("DATA", 354);
+        this.sendCommand(envelope.Message.Headers + envelope.Message.Body + CRLF + "." , 250);
+
         /* Fill in */
     }
 
@@ -79,23 +81,30 @@ public class SMTPConnection {
     private void sendCommand(String command, int rc) throws IOException {
         /* Fill in */
         /* Write command to server and read reply from server. */
-        if (command == "MAIL FROM"){
-            toServer.writeBytes(command + CRLF);
 
-
-
-        }
+        toServer.writeBytes(command + CRLF);
+        //int reply = parseReply(fromServer.readLine());
         /* Fill in */
 
         /* Fill in */
 	/* Check that the server's reply code is the same as the parameter
 	   rc. If not, throw an IOException. */
+        String response = fromServer.readLine();
+        System.out.println(response);
+        int reply = parseReply(response);
+        if (reply != rc){
+            throw new IOException("Reply did not match expected reply");
+        }
         /* Fill in */
     }
 
     /* Parse the reply line from the server. Returns the reply code. */
     private int parseReply(String reply) {
         /* Fill in */
+        StringTokenizer st = new StringTokenizer(reply, " ");
+        int retVal;
+        retVal = Integer.parseInt(st.nextToken());
+        return retVal;
     }
 
     /* Destructor. Closes the connection if something bad happens. */

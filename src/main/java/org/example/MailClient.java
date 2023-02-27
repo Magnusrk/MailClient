@@ -84,6 +84,7 @@ public class MailClient extends Frame {
     class SendListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             System.out.println("Sending mail");
+            Envelope envelope;
 
             /* Check that we have the local mailserver */
             if ((serverField.getText()).equals("")) {
@@ -116,19 +117,22 @@ public class MailClient extends Frame {
 	    /* Create the envelope, open the connection and try to send
 	       the message. */
             try {
-                Envelope envelope = new Envelope(mailMessage, serverField.getText());
+                envelope = new Envelope(mailMessage, serverField.getText());
+
             } catch (UnknownHostException e) {
                 /* If there is an error, do not go further */
                 return;
             }
             try {
                 SMTPConnection connection = new SMTPConnection(envelope);
+
                 connection.send(envelope);
                 connection.close();
             } catch (IOException error) {
                 System.out.println("Sending failed: " + error);
                 return;
             }
+
             System.out.println("Mail sent succesfully!");
         }
     }
