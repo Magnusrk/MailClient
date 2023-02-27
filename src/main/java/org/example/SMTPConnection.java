@@ -58,7 +58,8 @@ public class SMTPConnection {
         this.sendCommand("MAIL FROM: <" + envelope.Sender + ">", 250);
         this.sendCommand("RCPT TO: <" + envelope.Recipient + ">", 250);
         this.sendCommand("DATA", 354);
-        this.sendCommand(envelope.Message.Headers + envelope.Message.Body + CRLF + "." , 250);
+        this.sendCommand(envelope.Message.Headers + envelope.Message.Body + "\r\n.", 250);
+        System.out.println(envelope.Message.Headers + envelope.Message.Body + "\r\n.");
 
         /* Fill in */
     }
