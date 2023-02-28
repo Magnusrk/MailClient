@@ -52,19 +52,19 @@ public class Message {
 
         Headers += "MIME-Version: 1.0" +CRLF;
         Headers +="Content-Type:multipart/mixed;boundary=KkK170891tpbkKk__FV_KKKkkkjjwq"+ CRLF;
-
-        Headers += text;
-
-
+        Headers += "--KkK170891tpbkKk__FV_KKKkkkjjwq"+ CRLF;
         if(!Objects.equals(image, "")){
-            Headers += "--KkK170891tpbkKk__FV_KKKkkkjjwq"+ CRLF +
-                    "Content-Type:application/octet-stream;name=picture.jpg" + CRLF +
+
+            Headers += "Content-Type:application/octet-stream;name=picture.jpg" + CRLF +
                     "Content-Transfer-Encoding:base64" + CRLF +
                     "Content-Disposition:attachment;filename=picture.jpg" + CRLF + CRLF;
             Headers += image + CRLF ;
             Headers += boundary + CRLF;
         }
-        Body = text;
+        Headers += "Content-Type: text/plain; charset=\"iso-8859-1\"" + CRLF +
+        "Content-Transfer-Encoding: quoted-printable";
+        Headers += text;
+        Body = boundary;
 
 
 
