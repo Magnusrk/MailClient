@@ -63,6 +63,7 @@ public class MailClient extends Frame {
         fieldPanel.add(fromPanel);
         fieldPanel.add(toPanel);
         fieldPanel.add(subjectPanel);
+        fieldPanel.add(attachPanel);
 
 	/* Create a panel for the buttons and add listeners to the
 	   buttons. */
