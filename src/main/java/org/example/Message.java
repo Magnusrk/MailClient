@@ -1,6 +1,7 @@
 package org.example;
 
 import java.io.*;
+import java.security.cert.CRL;
 import java.util.*;
 import java.text.*;
 import java.util.Base64;
@@ -62,7 +63,7 @@ public class Message {
             Headers += boundary + CRLF;
         }
         Headers += "Content-Type: text/plain; charset=\"iso-8859-1\"" + CRLF +
-        "Content-Transfer-Encoding: quoted-printable" + CRLF;
+        "Content-Transfer-Encoding: quoted-printable" + CRLF + CRLF;
         Headers += text + CRLF;
         Body = "";
         Body += CRLF + boundary + CRLF;
