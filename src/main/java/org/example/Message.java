@@ -64,7 +64,8 @@ public class Message {
         Headers += "Content-Type: text/plain; charset=\"iso-8859-1\"" + CRLF +
         "Content-Transfer-Encoding: quoted-printable" + CRLF;
         Headers += text + CRLF;
-        Body += boundary + CRLF;
+        Body = "";
+        Body += CRLF + boundary + CRLF;
 
 
 
