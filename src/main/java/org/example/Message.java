@@ -63,9 +63,10 @@ public class Message {
         BufferedReader reader = new BufferedReader(new FileReader(path));
         StringBuilder pictureData = new StringBuilder();
         while(reader.ready()){
-            pictureData.append(Base64.getEncoder().encodeToString(reader.readLine().getBytes()));
+            pictureData.append(reader.readLine());
         }
-        return pictureData.toString();
+
+        return Base64.getEncoder().encodeToString(pictureData.toString().getBytes());
     }
 
 
