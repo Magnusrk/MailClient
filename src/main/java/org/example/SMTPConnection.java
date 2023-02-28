@@ -55,12 +55,10 @@ public class SMTPConnection {
 	/* Send all the necessary commands to send a message. Call
 	   sendCommand() to do the dirty work. Do _not_ catch the
 	   exception thrown from sendCommand(). */
-        this.sendCommand("MAIL FROM: <" + envelope.Sender + ">", 250);
-        this.sendCommand("RCPT TO: <" + envelope.Recipient + ">", 250);
-        this.sendCommand("DATA", 354);
-        this.sendCommand(envelope.Message.Headers + envelope.Message.Body + "\r\n.", 250);
-        System.out.println(envelope.Message.Headers + envelope.Message.Body + "\r\n.");
-
+        sendCommand("MAIL FROM: <" + envelope.Sender + ">", 250);
+        sendCommand("RCPT TO: <" + envelope.Recipient + ">", 250);
+        sendCommand("DATA", 354);
+        sendCommand(envelope.Message.Headers + envelope.Message.Body + "\r\n.", 250);
         /* Fill in */
     }
 
@@ -82,9 +80,7 @@ public class SMTPConnection {
     private void sendCommand(String command, int rc) throws IOException {
         /* Fill in */
         /* Write command to server and read reply from server. */
-
         toServer.writeBytes(command + CRLF);
-        //int reply = parseReply(fromServer.readLine());
         /* Fill in */
 
         /* Fill in */
