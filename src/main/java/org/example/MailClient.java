@@ -44,6 +44,7 @@ public class MailClient extends Frame {
         Panel fromPanel = new Panel(new BorderLayout());
         Panel toPanel = new Panel(new BorderLayout());
         Panel subjectPanel = new Panel(new BorderLayout());
+        Panel attachPanel = new Panel(new BorderLayout());
         Panel messagePanel = new Panel(new BorderLayout());
         serverPanel.add(serverLabel, BorderLayout.WEST);
         serverPanel.add(serverField, BorderLayout.CENTER);
@@ -53,8 +54,8 @@ public class MailClient extends Frame {
         toPanel.add(toField, BorderLayout.CENTER);
         subjectPanel.add(subjectLabel, BorderLayout.WEST);
         subjectPanel.add(subjectField, BorderLayout.CENTER);
-        subjectPanel.add(attachLabel, BorderLayout.WEST);
-        subjectPanel.add(attachField, BorderLayout.CENTER);
+        attachPanel.add(attachLabel, BorderLayout.WEST);
+        attachPanel.add(attachField, BorderLayout.CENTER);
         messagePanel.add(messageLabel, BorderLayout.NORTH);
         messagePanel.add(messageText, BorderLayout.CENTER);
         Panel fieldPanel = new Panel(new GridLayout(0, 1));
