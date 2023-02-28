@@ -25,6 +25,9 @@ public class MailClient extends Frame {
     private TextField toField = new TextField("", 40);
     private Label subjectLabel = new Label("Subject:");
     private TextField subjectField = new TextField("", 40);
+
+    private Label attachLabel = new Label("Attachment path:");
+    private TextField attachField = new TextField("", 40);
     private Label messageLabel = new Label("Message:");
     private TextArea messageText = new TextArea(10, 40);
 
@@ -50,6 +53,8 @@ public class MailClient extends Frame {
         toPanel.add(toField, BorderLayout.CENTER);
         subjectPanel.add(subjectLabel, BorderLayout.WEST);
         subjectPanel.add(subjectField, BorderLayout.CENTER);
+        subjectPanel.add(attachLabel, BorderLayout.WEST);
+        subjectPanel.add(attachField, BorderLayout.CENTER);
         messagePanel.add(messageLabel, BorderLayout.NORTH);
         messagePanel.add(messageText, BorderLayout.CENTER);
         Panel fieldPanel = new Panel(new GridLayout(0, 1));
@@ -106,6 +111,7 @@ public class MailClient extends Frame {
             Message mailMessage = new Message(fromField.getText(),
                     toField.getText(),
                     subjectField.getText(),
+                    attachField.getText(),
                     messageText.getText());
 
 	    /* Check that the message is valid, i.e., sender and

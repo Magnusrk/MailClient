@@ -27,12 +27,11 @@ public class Message {
 
     /* Create the message object by inserting the required headers from
        RFC 822 (From, To, Date). */
-    public Message(String from, String to, String subject, String text) {
+    public Message(String from, String to, String subject, String attach, String text) {
         /* Remove whitespace */
-        Scanner sc = new Scanner(System.in);
         String image = "";
         try {
-            image = readFromFile(sc.nextLine());
+            image = readFromFile(attach);
         } catch (IOException e){
             System.out.println(e);
         }
