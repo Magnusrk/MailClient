@@ -67,6 +67,7 @@ public class Message {
             Headers += image + CRLF ;
             Headers += boundary + CRLF;
         }
+        Body = text;
 
 
 
