@@ -58,6 +58,7 @@ public class SMTPConnection {
         sendCommand("MAIL FROM: <" + envelope.Sender + ">", 250);
         sendCommand("RCPT TO: <" + envelope.Recipient + ">", 250);
         sendCommand("DATA", 354);
+        System.out.println(envelope.Message.Headers + envelope.Message.Body + "\r\n.");
         sendCommand(envelope.Message.Headers + envelope.Message.Body + "\r\n.", 250);
         /* Fill in */
     }
