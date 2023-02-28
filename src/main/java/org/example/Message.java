@@ -37,10 +37,10 @@ public class Message {
         Headers = "From: " + From + CRLF;
         Headers += "To: " + To + CRLF;
         Headers += "Subject: " + subject.trim() + CRLF;
-        Headers += "Content-Type:multipart/mixed;boundary=KkK170891tpbkKk__FV_KKKkkkjjwq --KkK170891tpbkKk__FV_KKKkkkjjwq"+
-                " Content-Type:application/octet-stream;name=picture.jpg"+
-                    " Content-Transfer-Encoding:base64"+
-                    " Content-Disposition:attachment;filename=picture.jpg" + CRLF;
+        Headers += "MIME-Version: 1.0" +CRLF + "Content-Type:multipart/mixed;boundary=KkK170891tpbkKk__FV_KKKkkkjjwq"+ CRLF+ "--KkK170891tpbkKk__FV_KKKkkkjjwq"+ CRLF +
+                "Content-Type:application/octet-stream;name=picture.jpg" + CRLF +
+                    "Content-Transfer-Encoding:base64" + CRLF +
+                    "Content-Disposition:attachment;filename=picture.jpg" + CRLF + CRLF;
         Headers += image + CRLF ;
         Headers += boundary + CRLF;
 	/* A close approximation of the required format. Unfortunately
