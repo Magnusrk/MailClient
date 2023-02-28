@@ -43,29 +43,33 @@ public class Message {
         Headers = "From: " + From + CRLF;
         Headers += "To: " + To + CRLF;
         Headers += "Subject: " + subject.trim() + CRLF;
-        Headers += "MIME-Version: 1.0" +CRLF;
-        if(!Objects.equals(image, "")){
-            Headers +="Content-Type:multipart/mixed;boundary=KkK170891tpbkKk__FV_KKKkkkjjwq"+ CRLF+ "--KkK170891tpbkKk__FV_KKKkkkjjwq"+ CRLF +
-                    "Content-Type:application/octet-stream;name=picture.jpg" + CRLF +
-                    "Content-Transfer-Encoding:base64" + CRLF +
-                    "Content-Disposition:attachment;filename=picture.jpg" + CRLF + CRLF;
-            Headers += image + CRLF ;
-            Headers += boundary + CRLF;
-        }
-
-	/* A close approximation of the required format. Unfortunately
+        /* A close approximation of the required format. Unfortunately
 	   only GMT. */
         SimpleDateFormat format =
                 new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'");
         String dateString = format.format(new Date());
         Headers += "Date: " + dateString + CRLF;
-        Headers += """
-        ------=_Part_25269205_731993823.1677580710925
+
+        Headers += "MIME-Version: 1.0" +CRLF;
+        Body += """
         Content-Type: text/plain; charset="iso-8859-1
         Content-Transfer-Encoding: quoted-printable 
         """;
 
-        Body = text;
+        Body += text;
+
+
+        if(!Objects.equals(image, "")){
+            Body +="Content-Type:multipart/mixed;boundary=KkK170891tpbkKk__FV_KKKkkkjjwq"+ CRLF+ "--KkK170891tpbkKk__FV_KKKkkkjjwq"+ CRLF +
+                    "Content-Type:application/octet-stream;name=picture.jpg" + CRLF +
+                    "Content-Transfer-Encoding:base64" + CRLF +
+                    "Content-Disposition:attachment;filename=picture.jpg" + CRLF + CRLF;
+            Body += image + CRLF ;
+            Body += boundary + CRLF;
+        }
+
+
+
     }
 
     private String readFromFile(String path) throws IOException {
