@@ -60,13 +60,13 @@ public class Message {
     }
 
     private String readFromFile(String path) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(path));
-        StringBuilder pictureData = new StringBuilder();
-        while(reader.ready()){
-            pictureData.append(reader.readLine());
-        }
-
-        return Base64.getEncoder().encodeToString(pictureData.toString().getBytes());
+        File f = new File(path);
+        FileInputStream fin = new FileInputStream(f);
+        byte[] imagebytearray = new byte[(int)f.length()];
+        fin.read(imagebytearray);
+        String imagetobase64 = Base64.getEncoder().encodeToString(imagebytearray);
+        fin.close();
+        return imagetobase64;
     }
 
 
