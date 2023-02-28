@@ -51,21 +51,21 @@ public class Message {
         Headers += "Date: " + dateString + CRLF;
 
         Headers += "MIME-Version: 1.0" +CRLF;
-        Body += """
+        Headers += """
         Content-Type: text/plain; charset="iso-8859-1
         Content-Transfer-Encoding: quoted-printable 
         """;
 
-        Body += text;
+        Headers += text;
 
 
         if(!Objects.equals(image, "")){
-            Body +="Content-Type:multipart/mixed;boundary=KkK170891tpbkKk__FV_KKKkkkjjwq"+ CRLF+ "--KkK170891tpbkKk__FV_KKKkkkjjwq"+ CRLF +
+            Headers +="Content-Type:multipart/mixed;boundary=KkK170891tpbkKk__FV_KKKkkkjjwq"+ CRLF+ "--KkK170891tpbkKk__FV_KKKkkkjjwq"+ CRLF +
                     "Content-Type:application/octet-stream;name=picture.jpg" + CRLF +
                     "Content-Transfer-Encoding:base64" + CRLF +
                     "Content-Disposition:attachment;filename=picture.jpg" + CRLF + CRLF;
-            Body += image + CRLF ;
-            Body += boundary + CRLF;
+            Headers += image + CRLF ;
+            Headers += boundary + CRLF;
         }
 
 
