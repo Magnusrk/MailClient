@@ -62,9 +62,9 @@ public class Message {
             Headers += boundary + CRLF;
         }
         Headers += "Content-Type: text/plain; charset=\"iso-8859-1\"" + CRLF +
-        "Content-Transfer-Encoding: quoted-printable";
-        Headers += text;
-        Body = boundary;
+        "Content-Transfer-Encoding: quoted-printable" + CRLF;
+        Headers += text + CRLF;
+        Body += boundary + CRLF;
 
 
 
