@@ -20,17 +20,17 @@ public class MailClient extends Frame {
     private Button btClear = new Button("Clear");
     private Button btQuit = new Button("Quit");
     private Label serverLabel = new Label("Local mailserver:");
-    private TextField serverField = new TextField("", 40);
+    private TextField serverField = new TextField("datacomm.bhsi.xyz", 40);
     private Label fromLabel = new Label("From:");
-    private TextField fromField = new TextField("", 40);
+    private TextField fromField = new TextField("test@test.dk", 40);
     private Label toLabel = new Label("To:");
     private TextField toField = new TextField("", 40);
     private Label subjectLabel = new Label("Subject:");
     private TextField subjectField = new TextField("", 40);
 
-    private Label attachLabel = new Label("Attachment path:");
+    private Label attachLabel = new Label("Attachment:");
 
-    private Button attachButton = new Button("Attach file");
+    public Button attachButton = new Button("Attach file");
     private TextField attachField = new TextField("", 40);
 
     private JFileChooser filePick = new JFileChooser();
@@ -78,6 +78,7 @@ public class MailClient extends Frame {
         btClear.addActionListener(new ClearListener());
         btQuit.addActionListener(new QuitListener());
         attachButton.addActionListener(new AttachListener());
+        filePick.addActionListener(new FilePickListener());
         buttonPanel.add(btSend);
         buttonPanel.add(btClear);
         buttonPanel.add(btQuit);
@@ -116,11 +117,19 @@ public class MailClient extends Frame {
                 return;
             }
 
+            String filePath = "";
+            String fileName = "";
+            if(filePick.getSelectedFile() != null){
+                filePath = filePick.getSelectedFile().getPath();
+                fileName = filePick.getSelectedFile().getName();
+            }
+
             /* Create the message */
             Message mailMessage = new Message(fromField.getText(),
                     toField.getText(),
                     subjectField.getText(),
-                    filePick.getSelectedFile().getPath(),
+                    filePath,
+                    fileName,
                     messageText.getText());
 
 	    /* Check that the message is valid, i.e., sender and
@@ -173,6 +182,19 @@ public class MailClient extends Frame {
     class AttachListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             filePick.showOpenDialog(null);
+
+        }
+    }
+
+    class FilePickListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if(filePick.getSelectedFile() == null){
+                attachButton.setLabel("Attach file");
+
+            } else {
+                attachButton.setLabel(filePick.getSelectedFile().getName());
+            }
+
         }
     }
 }

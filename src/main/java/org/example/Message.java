@@ -28,7 +28,7 @@ public class Message {
 
     /* Create the message object by inserting the required headers from
        RFC 822 (From, To, Date). */
-    public Message(String from, String to, String subject, String attach, String text) {
+    public Message(String from, String to, String subject, String attach, String fileName, String text) {
         /* Remove whitespace */
         String image = "";
         try {
@@ -56,9 +56,9 @@ public class Message {
 
         if(!Objects.equals(image, "")){
             Headers += "--KkK170891tpbkKk__FV_KKKkkkjjwq"+ CRLF;
-            Headers += "Content-Type:application/octet-stream;name=picture.jpg" + CRLF +
+            Headers += "Content-Type:application/octet-stream;name=\"" + fileName+"\"" + CRLF +
                     "Content-Transfer-Encoding:base64" + CRLF +
-                    "Content-Disposition:attachment;filename=picture.jpg" + CRLF + CRLF;
+                    "Content-Disposition:attachment;filename=\"" + fileName+"\"" + CRLF + CRLF;
             Headers += image + CRLF ;
 
         }
