@@ -40,7 +40,7 @@ public class Message {
 
         From = from.trim();
         To = to.trim();
-        String boundary ="--KkK170891tpbkKk__FV_KKKkkkjjwq--";
+        String boundary ="--KkK170891tpbkKk__FV_KKKkkkjjwq";
         Headers = "From: " + From + CRLF;
         Headers += "To: " + To + CRLF;
         Headers += "Subject: " + subject.trim() + CRLF;
@@ -53,20 +53,21 @@ public class Message {
 
         Headers += "MIME-Version: 1.0" +CRLF;
         Headers +="Content-Type:multipart/mixed;boundary=KkK170891tpbkKk__FV_KKKkkkjjwq"+ CRLF;
-        Headers += "--KkK170891tpbkKk__FV_KKKkkkjjwq"+ CRLF;
-        if(!Objects.equals(image, "")){
 
+        if(!Objects.equals(image, "")){
+            Headers += "KkK170891tpbkKk__FV_KKKkkkjjwq"+ CRLF;
             Headers += "Content-Type:application/octet-stream;name=picture.jpg" + CRLF +
                     "Content-Transfer-Encoding:base64" + CRLF +
                     "Content-Disposition:attachment;filename=picture.jpg" + CRLF + CRLF;
             Headers += image + CRLF ;
-            Headers += boundary + CRLF;
+
         }
+        Headers += "KkK170891tpbkKk__FV_KKKkkkjjwq"+ CRLF;
         Headers += "Content-Type: text/plain; charset=\"iso-8859-1\"" + CRLF +
         "Content-Transfer-Encoding: quoted-printable" + CRLF + CRLF;
         Headers += text + CRLF;
         Body = "";
-        Body += CRLF + boundary + CRLF;
+
 
 
 
