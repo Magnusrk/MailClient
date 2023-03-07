@@ -1,5 +1,7 @@
 package org.example;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import java.io.*;
 import java.net.*;
 import java.awt.*;
@@ -27,7 +29,11 @@ public class MailClient extends Frame {
     private TextField subjectField = new TextField("", 40);
 
     private Label attachLabel = new Label("Attachment path:");
+
+    private Button attachButton = new Button("Attach file");
     private TextField attachField = new TextField("", 40);
+
+    private JFileChooser filePick = new JFileChooser();
     private Label messageLabel = new Label("Message:");
     private TextArea messageText = new TextArea(10, 40);
 
@@ -55,7 +61,7 @@ public class MailClient extends Frame {
         subjectPanel.add(subjectLabel, BorderLayout.WEST);
         subjectPanel.add(subjectField, BorderLayout.CENTER);
         attachPanel.add(attachLabel, BorderLayout.WEST);
-        attachPanel.add(attachField, BorderLayout.CENTER);
+        attachPanel.add(attachButton, BorderLayout.CENTER);
         messagePanel.add(messageLabel, BorderLayout.NORTH);
         messagePanel.add(messageText, BorderLayout.CENTER);
         Panel fieldPanel = new Panel(new GridLayout(0, 1));
@@ -71,6 +77,7 @@ public class MailClient extends Frame {
         btSend.addActionListener(new SendListener());
         btClear.addActionListener(new ClearListener());
         btQuit.addActionListener(new QuitListener());
+        attachButton.addActionListener(new AttachListener());
         buttonPanel.add(btSend);
         buttonPanel.add(btClear);
         buttonPanel.add(btQuit);
@@ -113,7 +120,7 @@ public class MailClient extends Frame {
             Message mailMessage = new Message(fromField.getText(),
                     toField.getText(),
                     subjectField.getText(),
-                    attachField.getText(),
+                    filePick.getSelectedFile().getPath(),
                     messageText.getText());
 
 	    /* Check that the message is valid, i.e., sender and
@@ -160,6 +167,12 @@ public class MailClient extends Frame {
     class QuitListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             System.exit(0);
+        }
+    }
+
+    class AttachListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            filePick.showOpenDialog(null);
         }
     }
 }
